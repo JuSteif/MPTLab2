@@ -1,0 +1,256 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>5.0</ProjectVersion>
+    <ProjectGuid>{24119426-e9e7-4207-83a1-5a1f7903d8af}</ProjectGuid>
+    <avrdevice>ATmega32</avrdevice>
+    <avrdeviceseries>none</avrdeviceseries>
+    <OutputType>Executable</OutputType>
+    <Language>C</Language>
+    <OutputFile>$(MSBuildProjectName).elf</OutputFile>
+    <OutputDirectory>$(MSBuildProjectDirectory)\$(Configuration)</OutputDirectory>
+    <UseGlobalToolchain>True</UseGlobalToolchain>
+    <ToolchainDirPath>
+    </ToolchainDirPath>
+    <MakeDirPath>
+    </MakeDirPath>
+    <GlobalToolchainPath>C:\Program Files\Atmel\AVR Studio 5.0\AVR ToolChain\bin</GlobalToolchainPath>
+    <AvrGccProjectExtensions>
+    </AvrGccProjectExtensions>
+    <AssemblyName>MPT</AssemblyName>
+    <Name>MPT</Name>
+    <RootNamespace>MPT</RootNamespace>
+    <ToolchainName>com.Atmel.AVRGCC8.C</ToolchainName>
+    <ToolchainFlavour>Native</ToolchainFlavour>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <ToolchainSettings>
+      <AvrGcc>
+        <avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>True</avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>
+        <avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>True</avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>
+        <avrgcc.compiler.optimization.level>Optimize for size (-Os)</avrgcc.compiler.optimization.level>
+        <avrgcc.compiler.optimization.PackStructureMembers>True</avrgcc.compiler.optimization.PackStructureMembers>
+        <avrgcc.compiler.optimization.AllocateBytesNeededForEnum>True</avrgcc.compiler.optimization.AllocateBytesNeededForEnum>
+        <avrgcc.compiler.optimization.DebugLevel>None</avrgcc.compiler.optimization.DebugLevel>
+        <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
+      </AvrGcc>
+    </ToolchainSettings>
+    <MemorySettings>
+    </MemorySettings>
+    <GenerateHexFile>True</GenerateHexFile>
+    <GenerateMapFile>True</GenerateMapFile>
+    <GenerateListFile>True</GenerateListFile>
+    <GenerateEepFile>True</GenerateEepFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <ToolchainSettings>
+      <AvrGcc>
+        <avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>True</avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>
+        <avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>True</avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>
+        <avrgcc.compiler.directories.IncludePaths>
+          <ListValues>
+            <Value>..</Value>
+          </ListValues>
+        </avrgcc.compiler.directories.IncludePaths>
+        <avrgcc.compiler.optimization.PackStructureMembers>True</avrgcc.compiler.optimization.PackStructureMembers>
+        <avrgcc.compiler.optimization.AllocateBytesNeededForEnum>True</avrgcc.compiler.optimization.AllocateBytesNeededForEnum>
+        <avrgcc.compiler.optimization.DebugLevel>Default (-g2)</avrgcc.compiler.optimization.DebugLevel>
+        <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
+        <avrgcc.compiler.miscellaneous.OtherFlags>-std=gnu99 -Wl,-u,vfprintf -lprintf_flt -lm</avrgcc.compiler.miscellaneous.OtherFlags>
+        <avrgcc.assembler.debugging.DebugLevel>Default (-g2)</avrgcc.assembler.debugging.DebugLevel>
+      </AvrGcc>
+    </ToolchainSettings>
+    <MemorySettings>
+    </MemorySettings>
+    <GenerateHexFile>True</GenerateHexFile>
+    <GenerateMapFile>True</GenerateMapFile>
+    <GenerateListFile>True</GenerateListFile>
+    <GenerateEepFile>True</GenerateEepFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Labor_1\MPT_LAB_1_1.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Labor_1\MPT_LAB_1_1_LSG.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Labor_1\MPT_LAB_1_2.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Labor_1\MPT_LAB_1_2_LSG.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Labor_1\MPT_LAB_1_3.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Labor_1\MPT_LAB_1_3_LSG.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Labor_1\MPT_LAB_1_4.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Labor_1\MPT_LAB_1_4_LSG.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Labor_1\MPT_LAB_1_5.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Labor_1\MPT_LAB_1_5_LSG.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Labor_2\MPT_LAB_2_1.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Labor_2\MPT_LAB_2_1_LSG.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Labor_2\MPT_LAB_2_2.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Labor_2\MPT_LAB_2_2_LSG.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Labor_2\MPT_LAB_2_3.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Labor_2\MPT_LAB_2_3_LSG.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Labor_2\MPT_LAB_2_4.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Labor_2\MPT_LAB_2_4_LSG.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Labor_2\MPT_LAB_2_5.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Labor_2\MPT_LAB_2_5_LSG.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Labor_3\MPT_LAB_3_1.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Labor_3\MPT_LAB_3_1_LSG.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Labor_3\MPT_LAB_3_2.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Labor_3\MPT_LAB_3_2_LSG.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Labor_3\MPT_LAB_3_3.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Labor_3\MPT_LAB_3_3_LSG.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Labor_3\MPT_LAB_3_4.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Labor_3\MPT_LAB_3_4_LSG.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Labor_4\MPT_LAB_4_1.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Labor_4\MPT_LAB_4_1_LSG.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Labor_4\MPT_LAB_4_2.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Labor_4\MPT_LAB_4_2_LSG.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Labor_4\MPT_LAB_4_3.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Labor_4\MPT_LAB_4_3_LSG.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Labor_5\MPT_LAB_5_1.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Labor_5\MPT_LAB_5_1_LSG.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Labor_5\MPT_LAB_5_2.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Labor_5\MPT_LAB_5_2_LSG.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Labor_5\MPT_LAB_5_3.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Labor_5\MPT_LAB_5_3_LSG.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MPT_LAB_1.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MPT_LAB_1.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MPT_LAB_2.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MPT_LAB_2.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MPT_LAB_3.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MPT_LAB_3.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MPT_LAB_4.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MPT_LAB_4.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MPT_LAB_5.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MPT_LAB_5.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MPT_LAB_6.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MPT_LAB_6.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MPT_LAB_MAIN.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MPT_LAB_MAIN.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MPT_LAB_UTIL.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MPT_LAB_UTIL.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MPT_UTIL.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MPT_UTIL.h">
+      <SubType>compile</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Labor_1" />
+    <Folder Include="Labor_2" />
+    <Folder Include="Labor_3" />
+    <Folder Include="Labor_4" />
+    <Folder Include="Labor_5" />
+    <Folder Include="Labor_6" />
+  </ItemGroup>
+  <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\AvrGCC.targets" />
+</Project>
