@@ -80,7 +80,7 @@ void A_2_3_1(void)
 	
 	UsartInit(8, 0, 1, 9600);
 	
-	SET_BIT(LED_PORT, 0);
+	CLR_BIT(LED_PORT, 0);
 
 	while (1)
 	{
@@ -115,7 +115,7 @@ void A_2_3_2(void)
 	
 	UsartInit(8, 0, 1, 9600);
 	
-	SET_BIT(LED_PORT, 0);
+	CLR_BIT(LED_PORT, 0);
 
 	while (1)
 	{

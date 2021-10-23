@@ -107,7 +107,45 @@ void A_2_4_1(void)
 // A_2_4_2: LED-Ansteuerung vom Terminal über Ziffertasten und switch
 void A_2_4_2(void)
 {
-  // IHR_CODE_HIER ...
+	// IHR_CODE_HIER ...
+	LED_DDR = 0xff;
+	LED_PORT = 0xff;
+  
+	UsartInit(8, 0, 1, 9600);
+  
+	while(1){
+		uint8_t data = UsartGetc();
+		
+		switch (data)
+		{
+		case '0':
+			TGL_BIT(LED_PORT, 0);
+			break;
+		case '1':
+			TGL_BIT(LED_PORT, 1);
+			break;
+		case '2':
+			TGL_BIT(LED_PORT, 2);
+			break;
+		case '3':
+			TGL_BIT(LED_PORT, 3);
+			break;
+		case '4':
+			TGL_BIT(LED_PORT, 4);
+			break;
+		case '5':
+			TGL_BIT(LED_PORT, 5);
+			break;
+		case '6':
+			TGL_BIT(LED_PORT, 6);
+			break;
+		case '7':
+			TGL_BIT(LED_PORT, 7);
+			break;
+		default:
+			UsartPuts("Keine gueltige Eingabe!");
+		}
+	}
 }	
 
 
@@ -117,6 +155,24 @@ void A_2_4_2(void)
 void A_2_4_3(void)
 {
 	// IHR_CODE_HIER ...
+	LED_DDR = 0xff;
+	LED_PORT = 0xff;
+  
+	UsartInit(8, 0, 1, 9600);
+	
+	while(1){
+		uint8_t data;
+		data = UsartGetc();
+		
+		if(data >= '0' && data <= '8'){
+			data -= '0';
+			
+			TGL_BIT(LED_PORT < data);
+		}
+		else{
+			UsartPuts("Keine gueltige Eingabe!");
+		}
+	}
 }
 
 //##############################################################################
