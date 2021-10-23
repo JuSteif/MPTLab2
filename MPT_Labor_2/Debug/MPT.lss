@@ -3,29 +3,29 @@ MPT.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         00000090  00000000  00000000  00000054  2**1
+  0 .text         00000256  00000000  00000000  00000054  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         00000000  00800060  00800060  000000e4  2**0
+  1 .data         00000000  00800060  00800060  000002aa  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .comment      00000030  00000000  00000000  000000e4  2**0
+  2 .comment      00000030  00000000  00000000  000002aa  2**0
                   CONTENTS, READONLY
-  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000114  2**2
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000002dc  2**2
                   CONTENTS, READONLY
-  4 .debug_aranges 00000020  00000000  00000000  00000150  2**0
+  4 .debug_aranges 000000a8  00000000  00000000  00000318  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_info   0000007c  00000000  00000000  00000170  2**0
+  5 .debug_info   000003ca  00000000  00000000  000003c0  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_abbrev 00000046  00000000  00000000  000001ec  2**0
+  6 .debug_abbrev 000001a4  00000000  00000000  0000078a  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   00000047  00000000  00000000  00000232  2**0
+  7 .debug_line   00000660  00000000  00000000  0000092e  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  00000034  00000000  00000000  0000027c  2**2
+  8 .debug_frame  000001c8  00000000  00000000  00000f90  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    0000013b  00000000  00000000  000002b0  2**0
+  9 .debug_str    0000022c  00000000  00000000  00001158  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    0000003b  00000000  00000000  000003eb  2**0
+ 10 .debug_loc    0000036c  00000000  00000000  00001384  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 00000010  00000000  00000000  00000426  2**0
+ 11 .debug_ranges 00000078  00000000  00000000  000016f0  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -65,41 +65,391 @@ Disassembly of section .text:
   60:	10 e0       	ldi	r17, 0x00	; 0
   62:	a0 e6       	ldi	r26, 0x60	; 96
   64:	b0 e0       	ldi	r27, 0x00	; 0
-  66:	e0 e9       	ldi	r30, 0x90	; 144
-  68:	f0 e0       	ldi	r31, 0x00	; 0
+  66:	e6 e5       	ldi	r30, 0x56	; 86
+  68:	f2 e0       	ldi	r31, 0x02	; 2
   6a:	02 c0       	rjmp	.+4      	; 0x70 <__do_copy_data+0x10>
   6c:	05 90       	lpm	r0, Z+
   6e:	0d 92       	st	X+, r0
   70:	a0 36       	cpi	r26, 0x60	; 96
   72:	b1 07       	cpc	r27, r17
   74:	d9 f7       	brne	.-10     	; 0x6c <__do_copy_data+0xc>
-  76:	0e 94 41 00 	call	0x82	; 0x82 <main>
-  7a:	0c 94 46 00 	jmp	0x8c	; 0x8c <_exit>
+  76:	0e 94 f3 00 	call	0x1e6	; 0x1e6 <main>
+  7a:	0c 94 29 01 	jmp	0x252	; 0x252 <_exit>
 
 0000007e <__bad_interrupt>:
   7e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
 
-00000082 <main>:
+00000082 <A_2_1_3>:
+//##############################################################################
+
+
+// A_2_1_3: Lauflicht L-R-L-... mit Tastertriggerung für Hin- und Rücklauf
+void A_2_1_3(void)
+{
+  82:	cf 93       	push	r28
+  84:	df 93       	push	r29
+  86:	00 d0       	rcall	.+0      	; 0x88 <A_2_1_3+0x6>
+  88:	cd b7       	in	r28, 0x3d	; 61
+  8a:	de b7       	in	r29, 0x3e	; 62
+	// Ihr Code hier...
+	// Richtungsregister für LEDs auf Ausgang
+	LED_DDR = 0b11111111;
+  8c:	84 e3       	ldi	r24, 0x34	; 52
+  8e:	90 e0       	ldi	r25, 0x00	; 0
+  90:	2f ef       	ldi	r18, 0xFF	; 255
+  92:	fc 01       	movw	r30, r24
+  94:	20 83       	st	Z, r18
+	TASTER_DDR = 0x00;
+  96:	87 e3       	ldi	r24, 0x37	; 55
+  98:	90 e0       	ldi	r25, 0x00	; 0
+  9a:	fc 01       	movw	r30, r24
+  9c:	10 82       	st	Z, r1
+
+	// Alle LEDs aus
+	LED_PORT = 0b11111111;
+  9e:	85 e3       	ldi	r24, 0x35	; 53
+  a0:	90 e0       	ldi	r25, 0x00	; 0
+  a2:	2f ef       	ldi	r18, 0xFF	; 255
+  a4:	fc 01       	movw	r30, r24
+  a6:	20 83       	st	Z, r18
+	uint8_t state = 0;
+  a8:	1a 82       	std	Y+2, r1	; 0x02
+	
+	while (1)
+	{
+		int8_t i_b;
+		
+		if(BIT_IS_SET(TASTER_PIN, 7)){
+  aa:	86 e3       	ldi	r24, 0x36	; 54
+  ac:	90 e0       	ldi	r25, 0x00	; 0
+  ae:	fc 01       	movw	r30, r24
+  b0:	80 81       	ld	r24, Z
+  b2:	88 23       	and	r24, r24
+  b4:	d4 f7       	brge	.-12     	; 0xaa <A_2_1_3+0x28>
+			Wait_x_ms(PRELLEN_DELAY);
+  b6:	81 e0       	ldi	r24, 0x01	; 1
+  b8:	90 e0       	ldi	r25, 0x00	; 0
+  ba:	0e 94 fa 00 	call	0x1f4	; 0x1f4 <Wait_x_ms>
+			
+			// LEDs einschalten: 0 => 7
+			for (i_b=0; i_b <= 7; i_b++)
+  be:	19 82       	std	Y+1, r1	; 0x01
+  c0:	1d c0       	rjmp	.+58     	; 0xfc <A_2_1_3+0x7a>
+			{
+				CLR_BIT(LED_PORT,i_b);
+  c2:	85 e3       	ldi	r24, 0x35	; 53
+  c4:	90 e0       	ldi	r25, 0x00	; 0
+  c6:	25 e3       	ldi	r18, 0x35	; 53
+  c8:	30 e0       	ldi	r19, 0x00	; 0
+  ca:	f9 01       	movw	r30, r18
+  cc:	20 81       	ld	r18, Z
+  ce:	62 2f       	mov	r22, r18
+  d0:	29 81       	ldd	r18, Y+1	; 0x01
+  d2:	42 2f       	mov	r20, r18
+  d4:	22 0f       	add	r18, r18
+  d6:	55 0b       	sbc	r21, r21
+  d8:	21 e0       	ldi	r18, 0x01	; 1
+  da:	30 e0       	ldi	r19, 0x00	; 0
+  dc:	02 c0       	rjmp	.+4      	; 0xe2 <A_2_1_3+0x60>
+  de:	22 0f       	add	r18, r18
+  e0:	33 1f       	adc	r19, r19
+  e2:	4a 95       	dec	r20
+  e4:	e2 f7       	brpl	.-8      	; 0xde <A_2_1_3+0x5c>
+  e6:	20 95       	com	r18
+  e8:	26 23       	and	r18, r22
+  ea:	fc 01       	movw	r30, r24
+  ec:	20 83       	st	Z, r18
+				Wait_x_ms(LED_DELAY);
+  ee:	81 e0       	ldi	r24, 0x01	; 1
+  f0:	90 e0       	ldi	r25, 0x00	; 0
+  f2:	0e 94 fa 00 	call	0x1f4	; 0x1f4 <Wait_x_ms>
+		
+		if(BIT_IS_SET(TASTER_PIN, 7)){
+			Wait_x_ms(PRELLEN_DELAY);
+			
+			// LEDs einschalten: 0 => 7
+			for (i_b=0; i_b <= 7; i_b++)
+  f6:	89 81       	ldd	r24, Y+1	; 0x01
+  f8:	8f 5f       	subi	r24, 0xFF	; 255
+  fa:	89 83       	std	Y+1, r24	; 0x01
+  fc:	89 81       	ldd	r24, Y+1	; 0x01
+  fe:	88 30       	cpi	r24, 0x08	; 8
+ 100:	04 f3       	brlt	.-64     	; 0xc2 <A_2_1_3+0x40>
+			{
+				CLR_BIT(LED_PORT,i_b);
+				Wait_x_ms(LED_DELAY);
+			}
+			// LEDs ausschalten: 0 => 7
+			for (i_b=0; i_b <= 7; i_b++)
+ 102:	19 82       	std	Y+1, r1	; 0x01
+ 104:	1c c0       	rjmp	.+56     	; 0x13e <A_2_1_3+0xbc>
+			{
+				SET_BIT(LED_PORT,i_b);
+ 106:	85 e3       	ldi	r24, 0x35	; 53
+ 108:	90 e0       	ldi	r25, 0x00	; 0
+ 10a:	25 e3       	ldi	r18, 0x35	; 53
+ 10c:	30 e0       	ldi	r19, 0x00	; 0
+ 10e:	f9 01       	movw	r30, r18
+ 110:	20 81       	ld	r18, Z
+ 112:	62 2f       	mov	r22, r18
+ 114:	29 81       	ldd	r18, Y+1	; 0x01
+ 116:	42 2f       	mov	r20, r18
+ 118:	22 0f       	add	r18, r18
+ 11a:	55 0b       	sbc	r21, r21
+ 11c:	21 e0       	ldi	r18, 0x01	; 1
+ 11e:	30 e0       	ldi	r19, 0x00	; 0
+ 120:	02 c0       	rjmp	.+4      	; 0x126 <A_2_1_3+0xa4>
+ 122:	22 0f       	add	r18, r18
+ 124:	33 1f       	adc	r19, r19
+ 126:	4a 95       	dec	r20
+ 128:	e2 f7       	brpl	.-8      	; 0x122 <A_2_1_3+0xa0>
+ 12a:	26 2b       	or	r18, r22
+ 12c:	fc 01       	movw	r30, r24
+ 12e:	20 83       	st	Z, r18
+				Wait_x_ms(LED_DELAY);
+ 130:	81 e0       	ldi	r24, 0x01	; 1
+ 132:	90 e0       	ldi	r25, 0x00	; 0
+ 134:	0e 94 fa 00 	call	0x1f4	; 0x1f4 <Wait_x_ms>
+			{
+				CLR_BIT(LED_PORT,i_b);
+				Wait_x_ms(LED_DELAY);
+			}
+			// LEDs ausschalten: 0 => 7
+			for (i_b=0; i_b <= 7; i_b++)
+ 138:	89 81       	ldd	r24, Y+1	; 0x01
+ 13a:	8f 5f       	subi	r24, 0xFF	; 255
+ 13c:	89 83       	std	Y+1, r24	; 0x01
+ 13e:	89 81       	ldd	r24, Y+1	; 0x01
+ 140:	88 30       	cpi	r24, 0x08	; 8
+ 142:	0c f3       	brlt	.-62     	; 0x106 <A_2_1_3+0x84>
+			{
+				SET_BIT(LED_PORT,i_b);
+				Wait_x_ms(LED_DELAY);
+			}
+			// LEDs einschalten: 7 => 0
+			for (i_b=7; i_b >= 0; i_b--)
+ 144:	87 e0       	ldi	r24, 0x07	; 7
+ 146:	89 83       	std	Y+1, r24	; 0x01
+ 148:	1d c0       	rjmp	.+58     	; 0x184 <A_2_1_3+0x102>
+			{
+				CLR_BIT(LED_PORT,i_b);
+ 14a:	85 e3       	ldi	r24, 0x35	; 53
+ 14c:	90 e0       	ldi	r25, 0x00	; 0
+ 14e:	25 e3       	ldi	r18, 0x35	; 53
+ 150:	30 e0       	ldi	r19, 0x00	; 0
+ 152:	f9 01       	movw	r30, r18
+ 154:	20 81       	ld	r18, Z
+ 156:	62 2f       	mov	r22, r18
+ 158:	29 81       	ldd	r18, Y+1	; 0x01
+ 15a:	42 2f       	mov	r20, r18
+ 15c:	22 0f       	add	r18, r18
+ 15e:	55 0b       	sbc	r21, r21
+ 160:	21 e0       	ldi	r18, 0x01	; 1
+ 162:	30 e0       	ldi	r19, 0x00	; 0
+ 164:	02 c0       	rjmp	.+4      	; 0x16a <A_2_1_3+0xe8>
+ 166:	22 0f       	add	r18, r18
+ 168:	33 1f       	adc	r19, r19
+ 16a:	4a 95       	dec	r20
+ 16c:	e2 f7       	brpl	.-8      	; 0x166 <A_2_1_3+0xe4>
+ 16e:	20 95       	com	r18
+ 170:	26 23       	and	r18, r22
+ 172:	fc 01       	movw	r30, r24
+ 174:	20 83       	st	Z, r18
+				Wait_x_ms(LED_DELAY);
+ 176:	81 e0       	ldi	r24, 0x01	; 1
+ 178:	90 e0       	ldi	r25, 0x00	; 0
+ 17a:	0e 94 fa 00 	call	0x1f4	; 0x1f4 <Wait_x_ms>
+			{
+				SET_BIT(LED_PORT,i_b);
+				Wait_x_ms(LED_DELAY);
+			}
+			// LEDs einschalten: 7 => 0
+			for (i_b=7; i_b >= 0; i_b--)
+ 17e:	89 81       	ldd	r24, Y+1	; 0x01
+ 180:	81 50       	subi	r24, 0x01	; 1
+ 182:	89 83       	std	Y+1, r24	; 0x01
+ 184:	89 81       	ldd	r24, Y+1	; 0x01
+ 186:	88 23       	and	r24, r24
+ 188:	04 f7       	brge	.-64     	; 0x14a <A_2_1_3+0xc8>
+			{
+				CLR_BIT(LED_PORT,i_b);
+				Wait_x_ms(LED_DELAY);
+			}
+			// LEDs ausschalten: 7 => 0
+			for (i_b=7; i_b >= 0; i_b--)
+ 18a:	87 e0       	ldi	r24, 0x07	; 7
+ 18c:	89 83       	std	Y+1, r24	; 0x01
+ 18e:	1c c0       	rjmp	.+56     	; 0x1c8 <A_2_1_3+0x146>
+			{
+				SET_BIT(LED_PORT,i_b);
+ 190:	85 e3       	ldi	r24, 0x35	; 53
+ 192:	90 e0       	ldi	r25, 0x00	; 0
+ 194:	25 e3       	ldi	r18, 0x35	; 53
+ 196:	30 e0       	ldi	r19, 0x00	; 0
+ 198:	f9 01       	movw	r30, r18
+ 19a:	20 81       	ld	r18, Z
+ 19c:	62 2f       	mov	r22, r18
+ 19e:	29 81       	ldd	r18, Y+1	; 0x01
+ 1a0:	42 2f       	mov	r20, r18
+ 1a2:	22 0f       	add	r18, r18
+ 1a4:	55 0b       	sbc	r21, r21
+ 1a6:	21 e0       	ldi	r18, 0x01	; 1
+ 1a8:	30 e0       	ldi	r19, 0x00	; 0
+ 1aa:	02 c0       	rjmp	.+4      	; 0x1b0 <A_2_1_3+0x12e>
+ 1ac:	22 0f       	add	r18, r18
+ 1ae:	33 1f       	adc	r19, r19
+ 1b0:	4a 95       	dec	r20
+ 1b2:	e2 f7       	brpl	.-8      	; 0x1ac <A_2_1_3+0x12a>
+ 1b4:	26 2b       	or	r18, r22
+ 1b6:	fc 01       	movw	r30, r24
+ 1b8:	20 83       	st	Z, r18
+				Wait_x_ms(LED_DELAY);
+ 1ba:	81 e0       	ldi	r24, 0x01	; 1
+ 1bc:	90 e0       	ldi	r25, 0x00	; 0
+ 1be:	0e 94 fa 00 	call	0x1f4	; 0x1f4 <Wait_x_ms>
+			{
+				CLR_BIT(LED_PORT,i_b);
+				Wait_x_ms(LED_DELAY);
+			}
+			// LEDs ausschalten: 7 => 0
+			for (i_b=7; i_b >= 0; i_b--)
+ 1c2:	89 81       	ldd	r24, Y+1	; 0x01
+ 1c4:	81 50       	subi	r24, 0x01	; 1
+ 1c6:	89 83       	std	Y+1, r24	; 0x01
+ 1c8:	89 81       	ldd	r24, Y+1	; 0x01
+ 1ca:	88 23       	and	r24, r24
+ 1cc:	0c f7       	brge	.-62     	; 0x190 <A_2_1_3+0x10e>
+			{
+				SET_BIT(LED_PORT,i_b);
+				Wait_x_ms(LED_DELAY);
+			}
+			
+			while (!BIT_IS_CLR(TASTER_PIN, 7))
+ 1ce:	04 c0       	rjmp	.+8      	; 0x1d8 <A_2_1_3+0x156>
+			{
+				Wait_x_ms(PRELLEN_DELAY);
+ 1d0:	81 e0       	ldi	r24, 0x01	; 1
+ 1d2:	90 e0       	ldi	r25, 0x00	; 0
+ 1d4:	0e 94 fa 00 	call	0x1f4	; 0x1f4 <Wait_x_ms>
+			{
+				SET_BIT(LED_PORT,i_b);
+				Wait_x_ms(LED_DELAY);
+			}
+			
+			while (!BIT_IS_CLR(TASTER_PIN, 7))
+ 1d8:	86 e3       	ldi	r24, 0x36	; 54
+ 1da:	90 e0       	ldi	r25, 0x00	; 0
+ 1dc:	fc 01       	movw	r30, r24
+ 1de:	80 81       	ld	r24, Z
+ 1e0:	88 23       	and	r24, r24
+ 1e2:	b4 f3       	brlt	.-20     	; 0x1d0 <A_2_1_3+0x14e>
+			{
+				Wait_x_ms(PRELLEN_DELAY);
+			}
+		}
+	}
+ 1e4:	62 cf       	rjmp	.-316    	; 0xaa <A_2_1_3+0x28>
+
+000001e6 <main>:
 
 #include "Labor_2/MPT_LAB_2.h"
 
 
 int main(void)
 {
-  82:	cf 93       	push	r28
-  84:	df 93       	push	r29
-  86:	cd b7       	in	r28, 0x3d	; 61
-  88:	de b7       	in	r29, 0x3e	; 62
+ 1e6:	cf 93       	push	r28
+ 1e8:	df 93       	push	r29
+ 1ea:	cd b7       	in	r28, 0x3d	; 61
+ 1ec:	de b7       	in	r29, 0x3e	; 62
+  // A_2_1_2: Lauflicht L-R-L-... mit Port- und Pindefinitionen, sonst wie A_2_1_1
+  // A_2_1_3: Lauflicht L-R-L-... mit Tastertriggerung für Hin- und Rücklauf, sonst wie A_2_1_2
+  //------------------------------------------------------------------------------
+  //A_2_1_1();
+  //A_2_1_2();
+  A_2_1_3();
+ 1ee:	0e 94 41 00 	call	0x82	; 0x82 <A_2_1_3>
   //A_2_5_2_Server();
 
   while(1)
   {
       //TODO:: Please write your application code 
   }
-  8a:	ff cf       	rjmp	.-2      	; 0x8a <main+0x8>
+ 1f2:	ff cf       	rjmp	.-2      	; 0x1f2 <main+0xc>
 
-0000008c <_exit>:
-  8c:	f8 94       	cli
+000001f4 <Wait_x_ms>:
 
-0000008e <__stop_program>:
-  8e:	ff cf       	rjmp	.-2      	; 0x8e <__stop_program>
+#include "MPT_LAB_UTIL.h"
+
+
+void Wait_x_ms(uint16_t x_ms)
+{
+ 1f4:	cf 93       	push	r28
+ 1f6:	df 93       	push	r29
+ 1f8:	00 d0       	rcall	.+0      	; 0x1fa <Wait_x_ms+0x6>
+ 1fa:	00 d0       	rcall	.+0      	; 0x1fc <Wait_x_ms+0x8>
+ 1fc:	00 d0       	rcall	.+0      	; 0x1fe <Wait_x_ms+0xa>
+ 1fe:	cd b7       	in	r28, 0x3d	; 61
+ 200:	de b7       	in	r29, 0x3e	; 62
+ 202:	9e 83       	std	Y+6, r25	; 0x06
+ 204:	8d 83       	std	Y+5, r24	; 0x05
+	uint16_t i_w, j_w;
+
+	for (j_w=0; j_w < x_ms; j_w++)
+ 206:	1c 82       	std	Y+4, r1	; 0x04
+ 208:	1b 82       	std	Y+3, r1	; 0x03
+ 20a:	12 c0       	rjmp	.+36     	; 0x230 <Wait_x_ms+0x3c>
+	{
+		for (i_w=0; i_w < 600; i_w++)
+ 20c:	1a 82       	std	Y+2, r1	; 0x02
+ 20e:	19 82       	std	Y+1, r1	; 0x01
+ 210:	05 c0       	rjmp	.+10     	; 0x21c <Wait_x_ms+0x28>
+ 212:	89 81       	ldd	r24, Y+1	; 0x01
+ 214:	9a 81       	ldd	r25, Y+2	; 0x02
+ 216:	01 96       	adiw	r24, 0x01	; 1
+ 218:	9a 83       	std	Y+2, r25	; 0x02
+ 21a:	89 83       	std	Y+1, r24	; 0x01
+ 21c:	89 81       	ldd	r24, Y+1	; 0x01
+ 21e:	9a 81       	ldd	r25, Y+2	; 0x02
+ 220:	88 35       	cpi	r24, 0x58	; 88
+ 222:	92 40       	sbci	r25, 0x02	; 2
+ 224:	b0 f3       	brcs	.-20     	; 0x212 <Wait_x_ms+0x1e>
+
+void Wait_x_ms(uint16_t x_ms)
+{
+	uint16_t i_w, j_w;
+
+	for (j_w=0; j_w < x_ms; j_w++)
+ 226:	8b 81       	ldd	r24, Y+3	; 0x03
+ 228:	9c 81       	ldd	r25, Y+4	; 0x04
+ 22a:	01 96       	adiw	r24, 0x01	; 1
+ 22c:	9c 83       	std	Y+4, r25	; 0x04
+ 22e:	8b 83       	std	Y+3, r24	; 0x03
+ 230:	2b 81       	ldd	r18, Y+3	; 0x03
+ 232:	3c 81       	ldd	r19, Y+4	; 0x04
+ 234:	8d 81       	ldd	r24, Y+5	; 0x05
+ 236:	9e 81       	ldd	r25, Y+6	; 0x06
+ 238:	28 17       	cp	r18, r24
+ 23a:	39 07       	cpc	r19, r25
+ 23c:	38 f3       	brcs	.-50     	; 0x20c <Wait_x_ms+0x18>
+	{
+		for (i_w=0; i_w < 600; i_w++)
+		{
+		}
+	}
+}
+ 23e:	00 00       	nop
+ 240:	26 96       	adiw	r28, 0x06	; 6
+ 242:	0f b6       	in	r0, 0x3f	; 63
+ 244:	f8 94       	cli
+ 246:	de bf       	out	0x3e, r29	; 62
+ 248:	0f be       	out	0x3f, r0	; 63
+ 24a:	cd bf       	out	0x3d, r28	; 61
+ 24c:	df 91       	pop	r29
+ 24e:	cf 91       	pop	r28
+ 250:	08 95       	ret
+
+00000252 <_exit>:
+ 252:	f8 94       	cli
+
+00000254 <__stop_program>:
+ 254:	ff cf       	rjmp	.-2      	; 0x254 <__stop_program>
