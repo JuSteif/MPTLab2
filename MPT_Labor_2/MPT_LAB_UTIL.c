@@ -120,7 +120,7 @@ void UsartInit(uint8_t CharBits, uint8_t ParBit, uint8_t StopBits, uint32_t Baud
 void UsartPutc(uint8_t Data)
 {
 	while (!(UCSRA & (1 << UDRE)));
-	UDR = Data;
+		UDR = Data;
 }
 
 

@@ -1,0 +1,29 @@
+UCSRA
+	Bit 7 (RXC) Empfang vollständig: Wird gesetzt, wenn der Eingangspuffer vollist.
+	Bit 6 (TXC) Daten gesendet: Wird gesetzt, wenn alle Daten aus dem Schieberegister in den Eingangspuffer geschrieben sind
+	Bit 5 (UDRE) Datenregister ist leer: Zeigt an, dass Senderegister wieder bereitzum Senden ist.
+	Bit 4 (FE) Frame Error: Wird bei fehlerhaftem Frame gesetzt.
+	Bit 3 (DOR) Data OverRun: Wird gesetzt, wenn zu viele Daten empfangen werden
+	Bit 2 (PE) Parity Error: Wird bei erkanntem Paritätsfehler gesetzt.
+	Bit 1 (U2X) Verdoppelung der Datenübertragung: Hat nur Auswirkungen auf asynchrone Datenübertragung. "1" verdoppelt die Datenrate.
+	Bit 0 (MPCM) Multi-Processor Communication Mode: "1" ankommende Nachrichten ohne Adressinformationen werden ignoriert.
+
+UCSRB
+	Bit 7 (RXCIE): Aktiver Interrupt für ankommende Daten.
+	Bit 6 (TXCIE): Aktiviert Interrupt für gesendete Daten.
+	Bit 5 (UDRIE): Aktiviert Interrupt für leeres Datenregister.
+	Bit 4 (RXEN): Aktivert den USART-Empfänger.
+	Bit 3 (TXEN): Aktiviert den USART-Sender.
+	Bit 2 (UCSZ2): Anzahl der Datenbits (siehe [1])
+	Bit 1 (RXB8): Neuntes empfangenes Datenbit (Falls Anzahl der empfangenen Datenbits = 9). 66 2 Laborversuch - Serielle Ein-/Ausgabe
+ 	Bit 0 (TXB8): Neuntes zu sendendes Datenbit (Falls Anzahl der empfangenen Datenbits = 9).
+
+UCSRC
+	Bit 7 (URSEL):
+	Bit 6 (UMSEL): Übertragungsmodus: "0" asynchrone Übertragung; "1" synchrone Übertragung
+	Bit 5 (UPM1): Angabe der Parität (siehe [1])
+	Bit 4 (UPM0): Angabe der Parität (siehe [1])	
+	Bit 3 (USBS): Anzahl der Stop-Bits: "0"1-bit; "1"2-bit
+	Bit 2 (UCSZ1): Anzahl der Datenbits (siehe [1])
+	Bit 1 (UCSZ0): Anzahl der Datenbits (siehe [1])
+	Bit 0 (UCPOL): Takt Polarität (siehe [1])

@@ -75,11 +75,31 @@ void A_2_3_1(void)
 {
 	// Initialisierung
 	// IHR_CODE_HIER ...
+	LED_DDR = 0xff;
+	LED_PORT = 0xff;
+	
+	UsartInit(8, 0, 1, 9600);
+	
+	SET_BIT(LED_PORT, 0);
 
 	while (1)
 	{
 		// Jetzt geben wir etwas sinnvolles aus!
 		// IHR_CODE_HIER ...
+		
+		UsartPutc('M');
+		UsartPutc('P');
+		UsartPutc('T');
+		UsartPutc(' ');
+		UsartPutc('i');
+		UsartPutc('s');
+		UsartPutc('t');
+		UsartPutc(' ');
+		UsartPutc('t');
+		UsartPutc('o');
+		UsartPutc('l');
+		UsartPutc('l');
+		UsartPutc('!');
 	}		
 }	
 
@@ -90,11 +110,19 @@ void A_2_3_2(void)
 {
 	// Initialisierung
 	// IHR_CODE_HIER ...
+	LED_DDR = 0xff;
+	LED_PORT = 0xff;
+	
+	UsartInit(8, 0, 1, 9600);
+	
+	SET_BIT(LED_PORT, 0);
 
 	while (1)
 	{
 		// Jetzt geben wir etwas sinnvolles aus!
 		// IHR_CODE_HIER ...
+		
+		UsartPuts("MPT macht Spass!\n\r");
 	}		
 }	
 
