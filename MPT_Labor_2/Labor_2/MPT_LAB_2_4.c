@@ -167,7 +167,7 @@ void A_2_4_3(void)
 		if(data >= '0' && data <= '8'){
 			data -= '0';
 			
-			TGL_BIT(LED_PORT < data);
+			TGL_BIT(LED_PORT, data);
 		}
 		else{
 			UsartPuts("Keine gueltige Eingabe!");

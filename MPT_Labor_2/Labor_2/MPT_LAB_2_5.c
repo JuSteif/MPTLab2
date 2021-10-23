@@ -74,44 +74,44 @@
 // A_2_5_1_Client: Abfrage der Taster => Senden uC
 void A_2_5_1_Client(void)
 {
-  // Richtungsregister für die LEDs auf Ausgang
+	// Richtungsregister für die LEDs auf Ausgang
 	LED_DDR = 0b11111111;
 
 	// Richtungsregister für Taster auf Eingang
 	TASTER_DDR = 0b00000000;
 
-  // Alle LEDs aus
-  LED_PORT = 0b11111111;
+	// Alle LEDs aus
+	LED_PORT = 0b11111111;
 	
-  // Initialisierung der USART-Schnittstelle
-  // 8 Zeichenbits, 1 Stopbit, 0 Paritätsbit, 9600 Baud
+	// Initialisierung der USART-Schnittstelle
+	// 8 Zeichenbits, 1 Stopbit, 0 Paritätsbit, 9600 Baud
 	UsartInit(8,1,0,9600);
 
 
 	while (1)
 	{
-    while (BIT_IS_CLR(TASTER_PIN,6) && BIT_IS_CLR(TASTER_PIN,7))
-	  {
-	  }
-	  Wait_x_ms(50);		  
+		while (BIT_IS_CLR(TASTER_PIN,6) && BIT_IS_CLR(TASTER_PIN,7))
+		{
+		}
+		Wait_x_ms(50);
 
-    if (BIT_IS_SET(TASTER_PIN,6))
-	  {
-      UsartPutc('+');
-      while (BIT_IS_SET(TASTER_PIN,6))
-	    {
-	    }
-	  }		
-	  if (BIT_IS_SET(TASTER_PIN,7))
-	  {
-      UsartPutc('-');
-      while (BIT_IS_SET(TASTER_PIN,7))
-	    {
-	    }
-	  }		
-	  Wait_x_ms(50);		  
-	}		
-}	
+		if (BIT_IS_SET(TASTER_PIN,6))
+		{
+			UsartPutc('+');
+			while (BIT_IS_SET(TASTER_PIN,6))
+			{
+			}
+		}
+		if (BIT_IS_SET(TASTER_PIN,7))
+		{
+			UsartPutc('-');
+			while (BIT_IS_SET(TASTER_PIN,7))
+			{
+			}
+		}
+		Wait_x_ms(50);
+	}
+}
 
 //##############################################################################
 
@@ -120,21 +120,21 @@ void A_2_5_1_Server(void)
 {
 	uint8_t Cnt = 0;
 	
-  // Richtungsregister für die LEDs auf Ausgang
+	// Richtungsregister für die LEDs auf Ausgang
 	LED_DDR = 0b11111111;
 
-  // Alle LEDs aus
-  LED_PORT = 0b11111111;
+	// Alle LEDs aus
+	LED_PORT = 0b11111111;
 	
-  // Initialisierung der USART-Schnittstelle
-  // 8 Zeichenbits, 1 Stopbit, 0 Paritätsbit, 9600 Baud
+	// Initialisierung der USART-Schnittstelle
+	// 8 Zeichenbits, 1 Stopbit, 0 Paritätsbit, 9600 Baud
 	UsartInit(8,1,0,9600);
 
 	while (1)
 	{
 		uint8_t Data;
 
-    // Zeichen von USART (Terminal/Tastatur) einlesen		
+		// Zeichen von USART (Terminal/Tastatur) einlesen
 		Data = UsartGetc();
 		if (Data == '+')
 		{
@@ -149,8 +149,102 @@ void A_2_5_1_Server(void)
 			
 			LED_PORT = ~Cnt;
 		}
-	}	
-}	
+	}
+}
+
+//##############################################################################
+
+void A_2_5_2_Client(void)
+{
+	// Richtungsregister für die LEDs auf Ausgang
+	LED_DDR = 0b11111111;
+
+	// Richtungsregister für Taster auf Eingang
+	TASTER_DDR = 0b00000000;
+
+	// Alle LEDs aus
+	LED_PORT = 0b11111111;
+	
+	// Initialisierung der USART-Schnittstelle
+	// 8 Zeichenbits, 1 Stopbit, 0 Paritätsbit, 9600 Baud
+	UsartInit(8,1,0,9600);
+
+
+	while (1)
+	{
+		while (BIT_IS_CLR(TASTER_PIN,6) && BIT_IS_CLR(TASTER_PIN,7) && BIT_IS_CLR(TASTER_PIN,5))
+		{
+		}
+		Wait_x_ms(50);
+
+		if (BIT_IS_SET(TASTER_PIN,6))
+		{
+			UsartPutc('+');
+			while (BIT_IS_SET(TASTER_PIN,6))
+			{
+			}
+		}
+		if (BIT_IS_SET(TASTER_PIN,7))
+		{
+			UsartPutc('-');
+			while (BIT_IS_SET(TASTER_PIN,7))
+			{
+			}
+		}
+		if (BIT_IS_SET(TASTER_PIN,5))
+		{
+			UsartPutc('R');
+			while (BIT_IS_SET(TASTER_PIN,5))
+			{
+			}
+		}
+		Wait_x_ms(50);
+	}
+}
+
+//##############################################################################
+
+void A_2_5_2_Server(void)
+{
+	uint8_t Cnt = 0;
+	
+	// Richtungsregister für die LEDs auf Ausgang
+	LED_DDR = 0b11111111;
+
+	// Alle LEDs aus
+	LED_PORT = 0b11111111;
+	
+	// Initialisierung der USART-Schnittstelle
+	// 8 Zeichenbits, 1 Stopbit, 0 Paritätsbit, 9600 Baud
+	UsartInit(8,1,0,9600);
+
+	while (1)
+	{
+		uint8_t Data;
+
+		// Zeichen von USART (Terminal/Tastatur) einlesen
+		Data = UsartGetc();
+		if (Data == '+')
+		{
+			++Cnt;
+			
+			LED_PORT = ~Cnt;
+		}
+		else
+		if (Data == '-')
+		{
+			--Cnt;
+			
+			LED_PORT = ~Cnt;
+		}
+		if (Data == 'R')
+		{
+			Cnt = 0;
+			
+			LED_PORT = ~Cnt;
+		}
+	}
+}
 
 //##############################################################################
 
