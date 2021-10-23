@@ -159,12 +159,13 @@ void A_2_4_3(void)
 	LED_PORT = 0xff;
   
 	UsartInit(8, 0, 1, 9600);
+	UsartPuts("Eingabe:");
 	
 	while(1){
 		uint8_t data;
 		data = UsartGetc();
 		
-		if(data >= '0' && data <= '8'){
+		if(data >= '0' && data <= '7'){
 			data -= '0';
 			
 			TGL_BIT(LED_PORT, data);
