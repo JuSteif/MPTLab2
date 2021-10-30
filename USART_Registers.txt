@@ -27,3 +27,9 @@ UCSRC
 	Bit 2 (UCSZ1): Anzahl der Datenbits (siehe [1])
 	Bit 1 (UCSZ0): Anzahl der Datenbits (siehe [1])
 	Bit 0 (UCPOL): Takt Polarität (siehe [1])
+
+UBRRL:
+	%256
+UBRRH:
+	/256
+

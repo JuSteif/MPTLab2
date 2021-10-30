@@ -155,22 +155,30 @@ void A_2_4_2(void)
 void A_2_4_3(void)
 {
 	// IHR_CODE_HIER ...
+	// LED´s initalisieren, alle Ausschalten
 	LED_DDR = 0xff;
 	LED_PORT = 0xff;
   
+	//USART initialisieren und Eingabeaufforderung an Terminal schicken
 	UsartInit(8, 0, 1, 9600);
 	UsartPuts("Eingabe:");
 	
 	while(1){
+		// Puffervariable für empfangene Daten der USART-Schnittstelle, Auf empfangene Daten warten
 		uint8_t data;
 		data = UsartGetc();
 		
+		// Routine für gültige Eingabe auf dem Terminal
 		if(data >= '0' && data <= '7'){
+			// ASCII-Zeichen in entsprechende Zahl konvertieren(Offset '0' oder 0x30 subtrahieren) 
 			data -= '0';
 			
+			// Entsprechendes Bit im LED_PORT register invertieren, um die zugehörige LED ein- und auszuschalten
 			TGL_BIT(LED_PORT, data);
 		}
+		// Routine für ungültige Eingabe auf dem Terminal
 		else{
+			// Fehlermeldung an das Terminal schicken
 			UsartPuts("Keine gueltige Eingabe!");
 		}
 	}

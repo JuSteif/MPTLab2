@@ -172,32 +172,44 @@ void A_2_5_2_Client(void)
 
 	while (1)
 	{
+		// Staendige Abfrage des 5(RESET), 6(+) und 7(-) Tasters
 		while (BIT_IS_CLR(TASTER_PIN,6) && BIT_IS_CLR(TASTER_PIN,7) && BIT_IS_CLR(TASTER_PIN,5))
 		{
 		}
+		//Prellen vermeiden
 		Wait_x_ms(50);
 
+		// Routine für Taste 6
 		if (BIT_IS_SET(TASTER_PIN,6))
 		{
+			//Befehl zum Inkrementieren an Server schicken, codiert durch '+'(0x2B)
 			UsartPutc('+');
+			//Warten bis Taste 6 losgelassen wurde, bevor nächste Befehle entgegengenommen werden
 			while (BIT_IS_SET(TASTER_PIN,6))
 			{
 			}
 		}
+		// Routine für Taste 7
 		if (BIT_IS_SET(TASTER_PIN,7))
 		{
+			//Befehl zum Dekrementieren an Server schicken, codiert durch '-'(0x2D)
 			UsartPutc('-');
+			//Warten bis Taste 7 losgelassen wurde, bevor nächste Befehle entgegengenommen werden
 			while (BIT_IS_SET(TASTER_PIN,7))
 			{
 			}
 		}
+		// Routine für Taste 5
 		if (BIT_IS_SET(TASTER_PIN,5))
 		{
+			//Befehl zum RESET an Server schicken, codiert durch 'R'(0x52)
 			UsartPutc('R');
+			//Warten bis Taste 5 losgelassen wurde, bevor nächste Befehle entgegengenommen werden
 			while (BIT_IS_SET(TASTER_PIN,5))
 			{
 			}
 		}
+		// Prellen beim loslassen einer Taste vermeiden
 		Wait_x_ms(50);
 	}
 }
@@ -206,6 +218,7 @@ void A_2_5_2_Client(void)
 
 void A_2_5_2_Server(void)
 {
+	// Countervariable anlegen
 	uint8_t Cnt = 0;
 	
 	// Richtungsregister für die LEDs auf Ausgang
@@ -220,27 +233,43 @@ void A_2_5_2_Server(void)
 
 	while (1)
 	{
+		// Puffervariable für empfangene Daten der USART-Schnittstelle 
 		uint8_t Data;
 
-		// Zeichen von USART (Terminal/Tastatur) einlesen
+		// Zeichen von USART einlesen
 		Data = UsartGetc();
+		
+		// Routine für Inkrementieren
 		if (Data == '+')
 		{
-			++Cnt;
+			// Overflow verhindern(256 nicht mehr zulässig)
+			if(Cnt < 255){
+				// Inkrementieren des Zählers
+				++Cnt;
+			}
 			
+			// Aktualisierten Counter an LED´s weitergeben
 			LED_PORT = ~Cnt;
 		}
-		else
+		// Routine für Dekrementieren
 		if (Data == '-')
 		{
-			--Cnt;
+			// Overflow verhindern(-1 nicht mehr zulässig)
+			if(Cnt > 0){
+				// Dekrementieren des Zählers
+				--Cnt;
+			}
 			
+			// Aktualisierten Counter an LED´s weitergeben
 			LED_PORT = ~Cnt;
 		}
+		// Routine für RESET
 		if (Data == 'R')
 		{
+			// Zähler auf 0 setzen
 			Cnt = 0;
 			
+			// Aktualisierten Counter an LED´s weitergeben
 			LED_PORT = ~Cnt;
 		}
 	}
